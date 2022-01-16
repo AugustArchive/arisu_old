@@ -1,0 +1,8 @@
+  _____          _           _    _
+ |_   _|__ _   _| |__   __ _| | _(_)
+   | |/ __| | | | '_ \ / _` | |/ / |
+   | |\__ \ |_| | |_) | (_| |   <| |
+   |_||___/\__,_|_.__/ \__,_|_|\_\_|
+
+Report bugs here: https://github.com/arisuland/Tsubaki
+Kotlin: v{KOTLIN} | JVM: v{JVM} | Tsubaki: v{VERSION}

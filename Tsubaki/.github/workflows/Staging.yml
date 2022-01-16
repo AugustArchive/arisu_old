@@ -1,0 +1,46 @@
+#name: Deploy to infrastructure (staging-api.arisu.land)
+#on:
+#  push:
+#    branches:
+#      - staging
+
+#    paths-ignore:
+#      - '.github/**'
+#      - 'assets/'
+#      - .dockerignore
+#      - gradle.properties
+#      - '**.md'
+#      - LICENSE
+#      - renovate.json
+#      - settings.gradle.kts
+
+#jobs:
+#  build-container:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checks out the repository
+#        uses: actions/checkout@v2
+
+#      - name: Login to the registry
+#        run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login registry.floofy.dev -u august --password-stdin
+
+#      - name: Build the container
+#        run: docker build --no-cache . -t registry.floofy.dev/arisu/tsubaki:staging-${{github.sha}}
+
+#      - name: Push to the registry
+#        run: docker push registry.floofy.dev/arisu/tsubaki:staging-${{github.sha}}
+
+#  deploy:
+#    needs: build-container
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Login to Kubernetes
+#        run: |
+#          mkdir ~/.kube
+#          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+
+#      - name: Set tag
+#        run: kubectl set image deployment/tsubaki-staging tsubaki-staging=registry.floofy.dev/arisu/tsubaki:staging-${{github.sha}}
+
+#      - name: Deploy!
+#        run: kubectl rollout status deployment/tsubaki-staging

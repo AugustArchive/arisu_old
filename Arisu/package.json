@@ -1,0 +1,15 @@
+{
+  "name": "@arisu/monorepo",
+  "private": true,
+  "workspaces": [
+    "frontend/",
+    "github-bot/"
+  ],
+  "scripts": {
+    "prepare": "husky install",
+    "build": "yarn workspaces run lint && yarn workspaces run build"
+  },
+  "devDependencies": {
+    "husky": "7.0.1"
+  }
+}

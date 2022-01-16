@@ -1,0 +1,88 @@
+# Tsubaki: Core backend infrastructure for Arisu, all the magic begins here ✨🚀
+# Copyright (C) 2020-2021 Noelware
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+version: '3.8'
+services:
+  tsubaki:
+    container_name: tsubaki
+    restart: always
+    build: .
+    depends_on:
+      - redis
+      - postgres
+      - prometheus
+    networks:
+      - default
+    ports:
+      - 17890:17890
+    volumes:
+      - tsubaki:/opt/Tsubaki/data/tsubaki
+      - E:\Projects\Arisu\Tsubaki\config.yml:/opt/Tsubaki/config.yml:ro
+
+  redis:
+    container_name: redis
+    restart: always
+    image: redis:latest
+    ports:
+      - 6379:6379
+    networks:
+      - tsubaki
+    volumes:
+      - redis:/data
+
+  # Uncomment this if you prefer to use a custom Redis config (./docker/redis)
+  # redis:
+  #   container_name: redis
+  #   restart: always
+  #   build: ./docker/redis
+  #   ports:
+  #     - 6379:6379
+  #   networks:
+  #     - tsubaki
+  #   volumes:
+  #     - redis:/data
+
+  postgresql:
+    container_name: postgres
+    restart: always
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    networks:
+      - tsubaki
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      # To use this, add a `.env` file to set this properly
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+
+  prometheus:
+    container_name: prometheus
+    build: ./docker/prometheus
+    restart: always
+    networks:
+      - default
+
+volumes:
+  postgres:
+  tsubaki:
+  redis:
+
+networks:
+  tsubaki:
+    internal: true

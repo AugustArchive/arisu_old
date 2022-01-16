@@ -1,0 +1,29 @@
+{
+  "project": "https://arisu.land/~/arisu/translations",
+  "github": {
+    "repository": "https://github.com/arisuland/translations",
+    "branches": [
+      "master"
+    ]
+  },
+  "directories": [
+    {
+      "format": "json",
+      "directory": "./arisu",
+      "name": "Arisu",
+      "description": "☔ Translation made with simplicity, yet robust. Made with ❤️ in TypeScript, Kotlin, and Go."
+    },
+    {
+      "format": "json",
+      "directory": "./cli",
+      "name": "CLI",
+      "description": "⛴️ A command-line interface to automate the process of handling translations, merging translations, etc."
+    },
+    {
+      "format": "json",
+      "directory": "./docs",
+      "name": "Documentation",
+      "description": "🐳 Documentation site for Arisu, showcasing the REST API and other stuff"
+    }
+  ]
+}

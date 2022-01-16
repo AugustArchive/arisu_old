@@ -1,0 +1,23 @@
+@tailwind components;
+@tailwind utilities;
+@tailwind base;
+
+$selection-colour: #322745;
+
+* {
+  box-sizing: border-box;
+}
+
+::-moz-selection {
+  background: $selection-colour;
+  color: white;
+}
+
+::selection {
+  background: $selection-colour;
+  color: white;
+}
+
+html {
+  scroll-behavior: smooth;
+}
